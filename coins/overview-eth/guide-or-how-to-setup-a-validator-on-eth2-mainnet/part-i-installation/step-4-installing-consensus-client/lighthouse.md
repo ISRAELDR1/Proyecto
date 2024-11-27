@@ -121,15 +121,15 @@ sudo cp $HOME/.cargo/bin/lighthouse /usr/local/bin/lighthouse
 
 </details>
 
-### **3. Setup and configure systemd**
+### **3. Instalar y configurar systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Cree un **archivo de unidad systemd** para definir su `consensus.service` configuración.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo..
 
 ```shell
 [Unit]
@@ -165,33 +165,33 @@ ExecStart=/usr/local/bin/lighthouse bn \
 WantedBy=multi-user.target
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Por último, inicie el cliente de la capa de consenso y compruebe su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C` para salir del estado.
 
-Check your logs to confirm that the consensus client is up and syncing.
+Compruebe los registros para confirmar que el cliente de consenso está activo y sincronizado.
 
 ```bash
 sudo journalctl -fu consensus | ccze
 ```
 
-Press `Ctrl` + `C` to exit the logs.
+Presione `Ctrl` + `C` para salir de los registros.
 
-### 4. Helpful consensus client commands
+### 4. Comandos de cliente de consenso útiles
 
 {% tabs %}
 {% tab title="View Logs" %}
@@ -199,7 +199,7 @@ Press `Ctrl` + `C` to exit the logs.
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Lighthouse Consensus Client Logs**
+**Ejemplo de registros de cliente de consenso de Lighthouse sincronizados**
 
 ```bash
 Feb 03 01:02:36.000 INFO New block received                      root: 0xb5ccb2f85d981ca9e1c0d904f967403ddf8c47532c195fe213c94a28ffaf6a2e, slot: 2138
@@ -228,9 +228,9 @@ sudo systemctl status consensus
 {% tab title="Reset Database" %}
 Common reasons to reset the database can include:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso de espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o un error de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -238,15 +238,15 @@ sudo rm -rf /var/lib/lighthouse/beacon
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo para volver a sincronizar el cliente de consenso debería tardar solo uno o dos minutos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que el cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso en la configuración de su cliente validador, que convierte un nodo completo en un nodo de participación.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+Si querías configurar un nodo completo, no un nodo de staking, ¡detente aquí! ¡Felicidades por ejecutar tu propio nodo completo! :tada:
 {% endhint %}
 
